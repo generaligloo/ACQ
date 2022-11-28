@@ -1,2 +1,4 @@
-package ACQ_Server;public class Main {
+package ACQ_Server;
+
+public class Main {
 }
