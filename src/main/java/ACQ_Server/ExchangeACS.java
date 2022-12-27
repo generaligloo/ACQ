@@ -1,6 +1,5 @@
 package ACQ_Server;
 
-import ACQ_Server.ACQ;
 import ACQ_Server.util.Ansi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +11,16 @@ import java.io.*;
 public class ExchangeACS implements Runnable {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ACQ.class);
+    private String token;
+    private String tokenResponse;
+
+    ExchangeACS(String token) {
+        this.token = token;
+    }
+
+    public String getTokenResponse() {
+        return tokenResponse;
+    }
 
     @Override
     public void run() {
@@ -28,10 +37,11 @@ public class ExchangeACS implements Runnable {
             BufferedWriter bufferedwriter = new BufferedWriter(outputstreamwriter);
 
             LOGGER.info(Ansi.BLUE + "Envoi des informations au serveur ACS...");
-            bufferedwriter.write("Ceci est un message pour l'ACS" + '\n');
+            bufferedwriter.write(token + '\n');
             bufferedwriter.flush();
             LOGGER.info(Ansi.BLUE + "En attente de la réponse du serveur ACS...");
             String response = bufferedreader.readLine();
+            this.tokenResponse = response;
             LOGGER.info(Ansi.GREEN + "Résponse de l'ACS: "+ response);
             sslsocket.close();
         } catch (Exception exception) {

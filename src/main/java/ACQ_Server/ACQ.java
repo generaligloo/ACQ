@@ -14,10 +14,7 @@ public class ACQ {
         System.setProperty("javax.net.ssl.trustStorePassword","123456ACQ");
 
         ExchangeHTTPS ExchangeHTTPS = new ExchangeHTTPS();
-        ExchangeACS ExchangeACS = new ExchangeACS();
         Thread ExchangeHTTPSThread = new Thread(ExchangeHTTPS);
-        Thread ExchangeACSThread = new Thread(ExchangeACS);
         ExchangeHTTPSThread.start();
-        ExchangeACSThread.start();
     }
 }
