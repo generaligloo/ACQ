@@ -11,7 +11,7 @@ import java.io.*;
 public class ExchangeACS implements Runnable {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ACQ.class);
-    private String token;
+    private final String token;
     private String tokenResponse;
 
     ExchangeACS(String token) {
@@ -35,9 +35,10 @@ public class ExchangeACS implements Runnable {
             OutputStream outputstream = sslsocket.getOutputStream();
             OutputStreamWriter outputstreamwriter = new OutputStreamWriter(outputstream);
             BufferedWriter bufferedwriter = new BufferedWriter(outputstreamwriter);
-
+            bufferedwriter.write("@TokenVerif"+'\n');
+            bufferedwriter.flush();
             LOGGER.info(Ansi.BLUE + "Envoi des informations au serveur ACS...");
-            bufferedwriter.write(token + '\n');
+            bufferedwriter.write(token+'\n');
             bufferedwriter.flush();
             LOGGER.info(Ansi.BLUE + "En attente de la réponse du serveur ACS...");
             String response = bufferedreader.readLine();

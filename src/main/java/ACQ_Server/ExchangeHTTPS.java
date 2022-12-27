@@ -30,8 +30,9 @@ public class ExchangeHTTPS implements Runnable {
             LOGGER.info(Ansi.CYAN  + "Reading ...");
             String message = bufferedreader.readLine();
             LOGGER.info("Message from HTTPS Server:" + message);
-
-            ExchangeACS ExchangeACS = new ExchangeACS(message);
+            String tokenV = message.substring(6);
+            LOGGER.info("Message from HTTPS Server cleaned:" + tokenV);
+            ExchangeACS ExchangeACS = new ExchangeACS(tokenV);
             Thread ExchangeACSThread = new Thread(ExchangeACS);
             ExchangeACSThread.start();
             String response = ExchangeACS.getTokenResponse();

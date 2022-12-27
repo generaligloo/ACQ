@@ -13,8 +13,16 @@ public class ACQ {
         System.setProperty("javax.net.ssl.trustStore","src\\main\\java\\ACQ_Server\\store\\ServerACQ.jks");
         System.setProperty("javax.net.ssl.trustStorePassword","123456ACQ");
 
-        ExchangeHTTPS ExchangeHTTPS = new ExchangeHTTPS();
-        Thread ExchangeHTTPSThread = new Thread(ExchangeHTTPS);
-        ExchangeHTTPSThread.start();
+        while (true) {
+            ExchangeHTTPS ExchangeHTTPS = new ExchangeHTTPS();
+            Thread ExchangeHTTPSThread = new Thread(ExchangeHTTPS);
+            ExchangeHTTPSThread.start();
+            try {
+                ExchangeHTTPSThread.join();
+                LOGGER.info("Fin du Thread de communication ... Restarting");
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
